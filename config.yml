@@ -34,7 +34,7 @@ templates:
 #
   series:
     thetvdb_lookup: yes
-    #include: series.yml
+    include: series.yml
     configure_series:
       from:
         entry_list: trakt-series
@@ -819,7 +819,7 @@ tasks:
       retrieve: dirs
     thetvdb_lookup: yes
     duplicates:
-      field: imdb_id
+      field: tvdb_id
       action: accept
     move:
       to: '/{{secrets.folder.root}}{{secrets.folder.repseries}}'
