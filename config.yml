@@ -817,7 +817,7 @@ tasks:
     filesystem:
       path: '/{{secrets.folder.root}}{{secrets.folder.series}}'
       retrieve: dirs
-    imdb_lookup: yes
+    thetvdb_lookup: yes
     duplicates:
       field: imdb_id
       action: accept
