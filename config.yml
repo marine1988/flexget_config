@@ -34,7 +34,7 @@ templates:
 #
   series:
     thetvdb_lookup: yes
-    #include: series.yml
+    include: series.yml
     configure_series:
       from:
         entry_list: trakt-series
@@ -325,7 +325,9 @@ tasks:
       - transmission-series
       - pushbullet
     magnets: yes
-    convert_magnet: yes
+    convert_magnet:
+      timeout: 10 seconds
+      force: yes
     inputs:
       - rss:
           url: http://showrss.info/feeds/all.rss
