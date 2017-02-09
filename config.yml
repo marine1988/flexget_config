@@ -5,7 +5,7 @@ schedules:
   - tasks: ['populate-*', 'clean-*', 'update-*']
     schedule:
       hour: 0
-  - tasks: ['purge-*', 'fill-*', '*-rss', '*-magnets']
+  - tasks: ['fill-*', '*-rss', '*-magnets']
     schedule:
       hour: 00-12
       minute: "*/30"
@@ -14,7 +14,8 @@ schedules:
       hour: 00-12/2
   - tasks: ['move-*', download-subtitles]
     schedule:
-      hour: 00-12/1
+      hour: 00-12
+      minute: 15,45
   - tasks: [subtitle-series]
     schedule:
       day_of_week: mon
@@ -24,6 +25,10 @@ schedules:
       day_of_week: fri
       hour: 14
   - tasks: [get-subtitles]
+    schedule:
+      day: 1 
+      hour: 15
+  - tasks: [duplicate-movies]
     schedule:
       day: 1 
       hour: 15
@@ -90,13 +95,14 @@ templates:
   reject:
     regexp:
       reject:
-        - (s|d)ub(s|bed|lado|titulado)?\b
+        - \b(s|d)ub(s|bed|lado|titulado)?\b
+        - \bhc\b
         - \bdual\b
         - \b3d\b
-        - \b(fr)(ench)?\b
-        - \b(ita)(lian)?\b
-        - \b(spa)(nish)?\b
-        - \b(ger)(man)?\b
+        - \bfre(nch)?\b
+        - \bita(lian)?\b
+        - \bspa(nish)?\b
+        - \bger(man)?\b
         - \bcastellano\b
         - \brus(sian)?\b
     content_filter:
@@ -360,7 +366,7 @@ tasks:
 ##### Remove manually movies downloaded from the movie queue and trakt list
 #
   clean-movie-queue:
-    priority: 11
+    priority: 31
     template:
       - disable-seen-retry
       - movies-metainfo
@@ -742,7 +748,7 @@ tasks:
 ##### Clean finished torrents from transmission
 #
   clean-transmission:
-    priority: 37
+    priority: 47
     disable: details
     clean_transmission:
       <<: *transmission-settings
@@ -778,7 +784,7 @@ tasks:
 ##### Clean the series that already ended from trakt series list
 #
   clean-series-list:
-    priority: 43
+    priority: 53
     delay: 8 day
     template:
       - disable-seen-retry
@@ -799,7 +805,7 @@ tasks:
 ##### move duplicated movies
 #
   duplicate-movies:
-    priority: 10
+    priority: 50
     manual: yes
     seen: no
     filesystem:
