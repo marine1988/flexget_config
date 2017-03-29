@@ -164,10 +164,13 @@ templates:
     # Can remove if you upgrade to python 2.7.9+ or install requests[security]
     #verify_ssl_certificates: no
     domain_delay:
-      thepiratebay.org: 30 seconds
+      thepiratebay.org: 15 seconds
+      thepiratebay.se: 15 seconds
       nyaa.se: 3 seconds
       extratorrent: 3 seconds
       limetorrents: 3 seconds
+      rarbg: 6 seconds
+      torrentz: 6 seconds
 
 ##### Transmission series config
 #
@@ -334,6 +337,9 @@ tasks:
             category: tv
         - limetorrents:
             category: tv
+        - rarbg:
+            category: [1, 18, 41, 49]
+        - 1337x: yes
 
 ##### Remove manually movies downloaded from the movie queue and trakt list
 #
@@ -427,6 +433,9 @@ tasks:
             category: movies
         - limetorrents:
             category: movies
+        - rarbg:
+            category: [1, 18, 41, 49]
+        - 1337x: yes
     list_match:
       from:
         - movie_list: trakt-movies
@@ -459,11 +468,12 @@ tasks:
         #- movie_list: from-imdb
       from:
         - piratebay:
-            category: highres movies
+            category: movies
         - extratorrent:
             category: movies
         - limetorrents:
             category: movies
+        - 1337x: yes
     if:
       - tmdb_year > now.year - 1: reject
     list_match:
@@ -497,13 +507,16 @@ tasks:
         #- movie_list: from-imdb
       from:
         - piratebay:
-            category: highres movies
+            category: movies
         - extratorrent:
             category: movies
         - limetorrents:
             category: movies
+        - rarbg:
+            category: [1, 18, 41, 49]
+        - 1337x: yes
     if:
-      - tmdb_year > now.year - 2: reject
+      - tmdb_year > now.year - 3: reject
     list_match:
       from:
         - movie_list: trakt-movies
