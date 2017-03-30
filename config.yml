@@ -169,8 +169,8 @@ templates:
       nyaa.se: 3 seconds
       extratorrent: 3 seconds
       limetorrents: 3 seconds
-      rarbg: 6 seconds
-      torrentz: 6 seconds
+      rarbg: 15 seconds
+      1337x: 6 seconds
 
 ##### Transmission series config
 #
