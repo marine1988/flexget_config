@@ -117,7 +117,6 @@ templates:
 #
   global:
     no_entries_ok: yes
-    require_field: series_name
     pathscrub: windows
     free_space:
       path: "/{? folder.root ?}"
@@ -165,11 +164,10 @@ templates:
     #verify_ssl_certificates: no
     domain_delay:
       thepiratebay.org: 15 seconds
-      thepiratebay.se: 15 seconds
-      nyaa.se: 3 seconds
-      extratorrent: 3 seconds
-      limetorrents: 3 seconds
-      rarbg: 15 seconds
+      nyaa.se: 5 seconds
+      extratorrent: 5 seconds
+      limetorrents: 5 seconds
+      rarbg: 6 seconds
       1337x: 6 seconds
 
 ##### Transmission series config
