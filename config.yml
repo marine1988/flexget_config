@@ -163,7 +163,8 @@ templates:
     # Can remove if you upgrade to python 2.7.9+ or install requests[security]
     #verify_ssl_certificates: no
     domain_delay:
-      thepiratebay.org: 15 seconds
+      thepiratebay.org: 30 seconds
+      thepiratebay.se: 30 seconds
       nyaa.se: 5 seconds
       extratorrent: 5 seconds
       limetorrents: 5 seconds
