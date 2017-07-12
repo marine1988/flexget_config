@@ -41,7 +41,6 @@ templates:
     thetvdb_lookup: yes
     tvmaze_lookup: yes
     require_field: series_name
-    #include: series.yml
     configure_series:
       from:
         entry_list: trakt-series
@@ -69,7 +68,7 @@ templates:
   movies-720p:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: 720p webdl+ !h265
+    quality: 720p webdl+
     content_size:
       min: 200
       max: 3000
@@ -262,6 +261,9 @@ tasks:
     template:
       - disable-seen-retry
       - series-metainfo
+    list_clear:
+      what:
+        - entry_list: trakt-series
     trakt_list:
       account: "{? trakt.account ?}"
       list: "{? trakt.series ?}"
@@ -342,23 +344,22 @@ tasks:
 
 ##### Remove manually movies downloaded from the movie queue and trakt list
 #
-  clean-movie-queue:
+  clean-movies-queue:
     priority: 31
     template:
       - disable-seen-retry
       - movies-metainfo
     filesystem:
-      path: "/{? folder.root ?}{? folder.downseries ?}"
+      path: "/{? folder.root ?}{? folder.movies ?}"
       recursive: yes
       retrieve: files
       regexp: '.*\.(avi|mkv|mp4)$'
     accept_all: yes
     list_remove:
       - movie_list: trakt-movies
-      #- movie_list: from-imdb
       - trakt_list:
           account: "{? trakt.account ?}"
-          list: '{{secrets.trakt.movies}}'
+          list: "{? trakt.movies ?}"
           type: movies
 
 
@@ -371,22 +372,16 @@ tasks:
       list: "{? trakt.movies ?}"
       type: movies
       strip_dates: yes
-    #imdb_list:
-      #login: '{{secrets.imdb.login}}'
-      #password: '{{secrets.imdb.password}}'
-      #list: '{{secrets.imdb.list}}'
     rss: http://rss.imdb.com/user/ur15183663/watchlist
     accept_all: yes
     list_add:
       - movie_list: trakt-movies
-      #- movie_list: from-imdb
 
 
 ##### Download movies manually downloaded torrents
 #
   download-movies-manual:
     priority: 34
-    manual: yes
     template:
       - disable-seen-retry
       - movies-metainfo
@@ -400,6 +395,7 @@ tasks:
       on_output:
         for_accepted: rm -f "{{location}}"
     list_remove:
+      - movie_list: trakt-movies
       - trakt_list:
           account: "{? trakt.account ?}"
           list: "{? trakt.movies ?}"
@@ -419,6 +415,10 @@ tasks:
     exists_movie:
       - "/{? folder.root ?}{? folder.downmovies ?}"
       - "/{? folder.root ?}{? folder.movies ?}"
+    magnets: yes
+    convert_magnet:
+      timeout: 10 seconds
+      force: yes
     discover:
       release_estimations: loose
       interval: 15 minutes
@@ -459,6 +459,10 @@ tasks:
     exists_movie:
       - "/{? folder.root ?}{? folder.downmovies ?}"
       - "/{? folder.root ?}{? folder.movies ?}"
+    magnets: yes
+    convert_magnet:
+      timeout: 10 seconds
+      force: yes
     discover:
       release_estimations: loose
       interval: 15 minutes
@@ -498,6 +502,10 @@ tasks:
     exists_movie:
       - "/{? folder.root ?}{? folder.downmovies ?}"
       - "/{? folder.root ?}{? folder.movies ?}"
+    magnets: yes
+    convert_magnet:
+      timeout: 10 seconds
+      force: yes
     discover:
       release_estimations: loose
       interval: 15 minutes
