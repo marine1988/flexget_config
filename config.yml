@@ -60,7 +60,7 @@ templates:
   movies-1080p:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: 1080p webdl+ !h265
+    quality: 1080p tvrip+ !h265 !10bit !cam !dts
     content_size:
       min: 900
       max: 6000
@@ -68,7 +68,7 @@ templates:
   movies-720p:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: 720p webdl+
+    quality: 720p hdrip+ !10bit !cam !dts
     content_size:
       min: 200
       max: 3000
@@ -76,7 +76,7 @@ templates:
   movies-sd:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: xvid|divx|h264 <720p
+    quality: hdrip+ <720p !10bit !cam !dts
     content_size:
       min: 200
       max: 2000
