@@ -47,8 +47,8 @@ templates:
       settings:
         identified_by: ep
         timeframe: 16 hours
-        target: hdtv 720p !h265
-        quality: tvrip+ 480p+ !h265
+        target: hdtv+ 720p !10bit !h265
+        quality: webrip+ 720p !10bit !h265
         propers: 16 hours
         specials: no
     content_size:
@@ -60,23 +60,23 @@ templates:
   movies-1080p:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: 1080p tvrip+ !h265 !10bit !cam !dts
+    quality: 1080p tvrip+ !h265 !10bit !dts
     content_size:
       min: 900
-      max: 6000
+      max: 8000
 
   movies-720p:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: 720p hdrip+ !10bit !cam !dts
+    quality: 720p+ hdrip+ !10bit !cam !dts
     content_size:
-      min: 200
-      max: 3000
+      min: 500
+      max: 4000
 
   movies-sd:
     tmdb_lookup: yes
     movie_list: trakt-movies
-    quality: hdrip+ <720p !10bit !cam !dts
+    quality: sdtv+ <720p !10bit !cam !dts
     content_size:
       min: 200
       max: 2000
