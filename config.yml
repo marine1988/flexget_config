@@ -71,7 +71,7 @@ templates:
     quality: 720p+ hdrip+ !10bit !cam !dts
     content_size:
       min: 500
-      max: 4000
+      max: 5000
 
   movies-sd:
     tmdb_lookup: yes
@@ -427,7 +427,7 @@ tasks:
         #- movie_list: from-imdb
       from:
         - piratebay:
-            category: highres movies
+            category: movies
         - extratorrent:
             category: movies
         - limetorrents:
@@ -523,7 +523,7 @@ tasks:
             category: [1, 18, 41, 49]
         - 1337x: yes
     if:
-      - tmdb_year > now.year - 3: reject
+      - tmdb_year > now.year - 2: reject
     list_match:
       from:
         - movie_list: trakt-movies
