@@ -471,7 +471,7 @@ tasks:
         #- movie_list: from-imdb
       from:
         - piratebay:
-            category: movies
+            category: highres movies
         - extratorrent:
             category: movies
         - limetorrents:
