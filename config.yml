@@ -785,7 +785,7 @@ tasks:
       list: "{? trakt.series ?}"
       type: shows
     if:
-      - tvdb_status == 'Ended': accept
+      - tvdb_status == 'Ended' and trakt_watched == 'True': accept
     list_remove:
       - trakt_list:
           account: "{? trakt.account ?}"
