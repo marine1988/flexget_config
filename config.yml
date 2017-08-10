@@ -372,7 +372,10 @@ tasks:
       list: "{? trakt.movies ?}"
       type: movies
       strip_dates: yes
-    rss: http://rss.imdb.com/user/ur15183663/watchlist
+    #rss: http://rss.imdb.com/user/ur15183663/watchlist aninhas antida
+    #rss: http://rss.imdb.com/list/ls003928446/ best off internet
+    rss: http://rss.imdb.com/list/ls073549131/ #lista aninhas
+    rss: http://rss.imdb.com/list/ls063225264/ #lista best of aninhas
     accept_all: yes
     list_add:
       - movie_list: trakt-movies
