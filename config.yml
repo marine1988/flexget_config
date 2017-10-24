@@ -3,8 +3,8 @@
 #
 schedules:
   - tasks: ['populate-*', 'clean-*', 'update-*']
-    schedule:
-      hour: 0
+    interval:
+      minutes: 30
   - tasks: ['fill-*', '*-rss']
     schedule:
       hour: 00-12
@@ -26,11 +26,11 @@ schedules:
       hour: 14
   - tasks: [get-subtitles]
     schedule:
-      day: 1 
+      day: 1
       hour: 15
   - tasks: [duplicate-movies]
     schedule:
-      day: 1 
+      day: 1
       hour: 15
 
 templates:
@@ -374,11 +374,23 @@ tasks:
       strip_dates: yes
     #rss: http://rss.imdb.com/user/ur15183663/watchlist aninhas antida
     #rss: http://rss.imdb.com/list/ls003928446/ best off internet
-    rss: http://rss.imdb.com/list/ls073549131/ #lista aninhas
-    rss: http://rss.imdb.com/list/ls063225264/ #lista best of aninhas
+    inputs:
+      - rss: http://rss.imdb.com/list/ls073549131/ #lista aninhas
+      - rss: http://rss.imdb.com/list/ls063225264/ #lista best of aninhas
+      - rss: http://rss.imdb.com/user/ur15183663/watchlist #aninhas watchlist
     accept_all: yes
     list_add:
       - movie_list: trakt-movies
+
+  fill-rss-movie-queue:
+    priority: 33
+    inputs:
+      - rss: http://rss.imdb.com/list/ls073549131/ #lista aninhas
+      - rss: http://rss.imdb.com/list/ls063225264/ #lista best of aninhas
+      - rss: http://rss.imdb.com/user/ur15183663/watchlist #aninhas watchlist
+    accept_all: yes
+    list_add:
+      - movie_list: imdb-movies
 
 
 ##### Download movies manually downloaded torrents
@@ -673,6 +685,22 @@ tasks:
         - podnapisi
         - thesubdb
         - tvsubtitles
+        - subscenter
+        - shooter
+        - legendastv
+      authentication:
+        addic7ed:
+          username: "{? addicted.user ?}"
+          password: "{? addicted.pass ?}"
+        opensubtitles:
+          username: "{? opensubtitles.user ?}"
+          password: "{? opensubtitles.pass ?}"
+        legendastv:
+          username: "{? legendastv.user ?}"
+          password: "{? legendastv.pass ?}"
+        podnapisi:
+          username: "{? podnapisi.user ?}"
+          password: "{? podnapisi.pass ?}"
 
 ###download subtitles for movies
   subtitle-movies:
@@ -700,6 +728,22 @@ tasks:
         - podnapisi
         - thesubdb
         - tvsubtitles
+        - subscenter
+        - shooter
+        - legendastv
+      authentication:
+        addic7ed:
+          username: "{? addicted.user ?}"
+          password: "{? addicted.pass ?}"
+        opensubtitles:
+          username: "{? opensubtitles.user ?}"
+          password: "{? opensubtitles.pass ?}"
+        legendastv:
+          username: "{? legendastv.user ?}"
+          password: "{? legendastv.pass ?}"
+        podnapisi:
+          username: "{? podnapisi.user ?}"
+          password: "{? podnapisi.pass ?}"
 
 ###download subtitles for all files
   get-subtitles:
@@ -708,7 +752,7 @@ tasks:
       - seen
       - retry_failed
     filesystem:
-      path: 
+      path:
         - "/{? folder.root ?}{? folder.movies ?}"
         - "/{? folder.root ?}{? folder.series ?}"
       regexp: '.*\.(avi|mkv|mp4)$'
@@ -720,7 +764,15 @@ tasks:
       alternatives:
         - eng
       exact_match: yes
-      providers: [addic7ed, opensubtitles, tvsubtitles, legendastv, podnapisi]
+      providers:
+        - opensubtitles
+        - addic7ed
+        - podnapisi
+        - thesubdb
+        - tvsubtitles
+        - subscenter
+        - shooter
+        - legendastv
       single: no
       hearing_impaired: yes
       authentication:
@@ -813,9 +865,8 @@ tasks:
       allow_dir: yes
 
 ##### webui
-#		  
+#
 web_server:
   bind: 0.0.0.0
   port: 3539
   web_ui: yes
-
