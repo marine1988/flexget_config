@@ -5,8 +5,6 @@ config.yml.*
 received/
 logs/
 temp/
-series.yml
-anime.yml
 converted/
 *test*
 trakt*
